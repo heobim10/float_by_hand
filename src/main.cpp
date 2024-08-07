@@ -129,7 +129,8 @@ FloatImpl operator+(FloatImpl lhs, FloatImpl rhs) {
     }
     s32 tmp_mantissa = left_mantissa + right_mantissa;
     if (tmp_mantissa == 0) {
-        return {0b0, -1 * exponent_bias, 0};
+        return {0b0, 0 - 0b0111'1111, 0b0};
+        // return {0.0f};
     }
     if (tmp_mantissa < 0) {
         negative = true;
@@ -146,7 +147,7 @@ FloatImpl operator+(FloatImpl lhs, FloatImpl rhs) {
 
 int main() {
     FloatImpl foo{2.1f};
-    FloatImpl bar{-2.1f};
+    FloatImpl bar{2.1f};
     std::cout << (foo.negative() ? "-" : "") << "1."
               << foo.mantissa_string() << "x2^"
               << int32_t(foo.exponent()) << '\n';
